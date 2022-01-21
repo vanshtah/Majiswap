@@ -43,6 +43,9 @@ import { computeTradePriceBreakdown, warningSeverity } from 'utils/prices';
 import { ReactComponent as PriceExchangeIcon } from 'assets/images/PriceExchangeIcon.svg';
 import { ReactComponent as ExchangeIcon } from 'assets/images/ExchangeIcon.svg';
 import { ReactComponent as EditIcon } from 'assets/images/EditIcon.svg';
+import useBlockNumber, {
+  useFastForwardBlockNumber,
+} from 'hooks/useBlockNumber';
 
 const useStyles = makeStyles(({ palette }) => ({
   exchangeSwap: {
@@ -454,6 +457,9 @@ const Swap: React.FC<{
     }
   }, [attemptingTxn, onUserInput, swapErrorMessage, tradeToConfirm, txHash]);
 
+  const lastBlockNumber = useBlockNumber();
+  const fastForwardBlockNumber = useFastForwardBlockNumber();
+
   const handleSwap = useCallback(() => {
     if (
       priceImpactWithoutFee &&
@@ -484,6 +490,11 @@ const Swap: React.FC<{
 
         try {
           const receipt = await response.wait();
+          // the receipt was fetched before the block, fast forward to that block to trigger balance updates
+          if (Number(receipt.blockNumber) > Number(lastBlockNumber)) {
+            fastForwardBlockNumber(receipt.blockNumber);
+          }
+
           finalizedTransaction(receipt, {
             summary,
           });
@@ -495,6 +506,7 @@ const Swap: React.FC<{
             swapErrorMessage: undefined,
             txHash: response.hash,
           });
+
           ReactGA.event({
             category: 'Swap',
             action:

@@ -1,13 +1,12 @@
 import { useEffect, useMemo, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useActiveWeb3React } from 'hooks';
-import {
-  useAddPopup,
-  useBlockNumber,
-  useRemovePopup,
-} from 'state/application/hooks';
+import { useAddPopup, useRemovePopup } from 'state/application/hooks';
 import { AppDispatch, AppState } from 'state';
 import { checkedTransaction, finalizeTransaction } from './actions';
+import useBlockNumber, {
+  useFastForwardBlockNumber,
+} from 'hooks/useBlockNumber';
 
 export function shouldCheck(
   lastBlockNumber: number,
@@ -35,6 +34,7 @@ export default function Updater(): null {
   const [popupTxHashes, setPopupTxHashes] = useState(''); // to store hash of the transactions already opened a popup.
 
   const lastBlockNumber = useBlockNumber();
+  const fastForwardBlockNumber = useFastForwardBlockNumber();
 
   const dispatch = useDispatch<AppDispatch>();
   const state = useSelector<AppState, AppState['transactions']>(
@@ -84,6 +84,19 @@ export default function Updater(): null {
           .getTransactionReceipt(hash)
           .then((receipt) => {
             if (receipt) {
+              // the receipt was fetched before the block, fast forward to that block to trigger balance updates
+              console.log('fastForwardBlockNumber , ', {
+                lastBlockNumber,
+                recBlock: receipt.blockNumber,
+              });
+              // if (Number(receipt.blockNumber) > Number(lastBlockNumber)) {
+              //   console.log('fastForwardBlockNumber , ', {
+              //     lastBlockNumber,
+              //     recBlock: receipt.blockNumber,
+              //   });
+              //   fastForwardBlockNumber(receipt.blockNumber);
+              // }
+
               dispatch(
                 finalizeTransaction({
                   chainId,

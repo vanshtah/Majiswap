@@ -6,7 +6,6 @@ import { useMulticallContract } from 'hooks/useContract';
 import useDebounce from 'hooks/useDebounce';
 import chunkArray from 'utils/chunkArray';
 import { CancelledError, retry, RetryableError } from 'utils/retry';
-import { useBlockNumber } from 'state/application/hooks';
 import { AppDispatch, AppState } from 'state';
 import {
   Call,
@@ -15,6 +14,7 @@ import {
   parseCallKey,
   updateMulticallResults,
 } from './actions';
+import useBlockNumber from 'hooks/useBlockNumber';
 
 // chunk calls so we do not exceed the gas limit
 const CALL_CHUNK_SIZE = 500;

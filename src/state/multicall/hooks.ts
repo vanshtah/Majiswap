@@ -4,7 +4,6 @@ import { Contract } from '@ethersproject/contracts';
 import { useEffect, useMemo } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useActiveWeb3React } from 'hooks';
-import { useBlockNumber } from 'state/application/hooks';
 import { AppDispatch, AppState } from 'state';
 import {
   addMulticallListeners,
@@ -14,6 +13,7 @@ import {
   toCallKey,
   ListenerOptions,
 } from './actions';
+import useBlockNumber from 'hooks/useBlockNumber';
 
 export interface Result extends ReadonlyArray<any> {
   readonly [key: string]: any;

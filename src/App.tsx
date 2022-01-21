@@ -35,7 +35,7 @@ import { Web3ReactManager, Popups } from 'components';
 import { NetworkContextName } from 'constants/index';
 import { useActiveWeb3React } from 'hooks';
 import { useWalletModalToggle } from 'state/application/hooks';
-import ApplicationUpdater from 'state/application/updater';
+// import ApplicationUpdater from 'state/application/updater';
 import TransactionUpdater from 'state/transactions/updater';
 import ListsUpdater from 'state/lists/updater';
 import MulticallUpdater from 'state/multicall/updater';
@@ -45,6 +45,7 @@ import 'slick-carousel/slick/slick-theme.css';
 import './i18n';
 import './App.css';
 import { mainTheme } from './theme';
+import { BlockUpdater } from 'hooks/useBlockNumber';
 
 const Web3ProviderNetwork = createWeb3ReactRoot(NetworkContextName);
 
@@ -70,11 +71,12 @@ const Providers: React.FC = ({ children }) => {
 function Updaters() {
   return (
     <>
-      <ApplicationUpdater />
+      {/* <ApplicationUpdater /> */}
       <TransactionUpdater />
       <ListsUpdater />
       <MulticallUpdater />
       <UserUpdater />
+      <BlockUpdater />
     </>
   );
 }
