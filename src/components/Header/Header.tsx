@@ -271,16 +271,16 @@ const Header: React.FC = () => {
       text: 'Farm',
       id: 'farm-page-link',
     },
-//     {
-//       link: '/dragons',
-//       text: 'Dragon’s Lair',
-//       id: 'dragons-page-link',
-//     },
-//     {
-//       link: '/analytics',
-//       text: 'Analytics',
-//       id: 'analytics-page-link',
-//     },
+    //     {
+    //       link: '/dragons',
+    //       text: 'Dragon’s Lair',
+    //       id: 'dragons-page-link',
+    //     },
+    //     {
+    //       link: '/analytics',
+    //       text: 'Analytics',
+    //       id: 'analytics-page-link',
+    //     },
   ];
 
   const outLinks: any[] = [
@@ -318,7 +318,12 @@ const Header: React.FC = () => {
         confirmedTransactions={confirmed}
       />
       <Link to='/'>
-        <img src={mobileWindowSize ? QuickIcon : QuickLogo} alt='QuickLogo' />
+        <img
+          src={mobileWindowSize ? QuickIcon : QuickLogo}
+          height={'50px'}
+          width={'150px'}
+          alt='QuickLogo'
+        />
       </Link>
       {!tabletWindowSize && (
         <Box className={classes.mainMenu}>

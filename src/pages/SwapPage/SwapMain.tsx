@@ -80,7 +80,7 @@ const SwapMain: React.FC = () => {
             )}
             onClick={() => setSwapIndex(1)}
           >
-            <Typography variant='body1'>Limit</Typography>
+            {/* <Typography variant='body1'>Limit</Typography> */}
           </Box>
         </Box>
         <Box className={classes.headingItem}>

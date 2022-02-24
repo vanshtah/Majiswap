@@ -68,11 +68,11 @@ const FarmPage: React.FC = () => {
       onClick: () => setFarmIndex(GlobalConst.farmIndex.LPFARM_INDEX),
       condition: farmIndex === GlobalConst.farmIndex.LPFARM_INDEX,
     },
-    {
-      text: 'Dual Mining',
-      onClick: () => setFarmIndex(GlobalConst.farmIndex.DUALFARM_INDEX),
-      condition: farmIndex === GlobalConst.farmIndex.DUALFARM_INDEX,
-    },
+    // {
+    //   text: 'Dual Mining',
+    //   onClick: () => setFarmIndex(GlobalConst.farmIndex.DUALFARM_INDEX),
+    //   condition: farmIndex === GlobalConst.farmIndex.DUALFARM_INDEX,
+    // },
   ];
 
   return (
